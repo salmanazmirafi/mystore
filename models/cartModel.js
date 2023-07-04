@@ -1,0 +1,84 @@
+const mongoose = require("mongoose");
+
+const cartSchema =  mongoose.Schema({
+    productId:{
+        type:String,
+        required:true,
+        trim:true,
+    },
+    name:{
+        type:String,
+        required:true,
+        trim:true,
+    },
+    description:{
+        type:String,
+        required:true,
+    },
+    price:{
+        type:String,
+        required:true,
+        mexLength:8,
+    },
+    category:{
+        type:String,
+        required:true,
+    },
+    ratings:{
+        type:Number,
+        default:0
+    },
+    quantity:{
+        type:Number,
+        default:1
+    },
+    images:[
+        {
+          public_id:{
+            type:String,
+            required:true
+          },
+          url:{
+              type:String,
+              required:true
+          },
+        }
+      ],
+    numOfReviews:{
+        type:Number,
+        default:0
+    },
+    reviews:[
+        {
+            user:{
+                type:mongoose.Schema.ObjectId,
+                ref:"User",
+                required:true
+            },
+            name:{
+                type:String,
+                required:true
+            },
+            rating:{
+                type:Number,
+                required:true,
+            },
+            comment:{
+                type:String,
+                required:true
+            }
+        },
+    ],
+    createdAt:{
+        type:Date,
+        default:Date.now(),
+    },
+    user:{
+        type:mongoose.Schema.ObjectId,
+        ref:"User",
+        // required:true,
+    }
+})
+
+// export schema
+module.exports =  mongoose.model("Cart", cartSchema);
